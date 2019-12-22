@@ -1,0 +1,105 @@
+
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Simora</title>
+</head>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<meta name="google-signin-client_id" content="1011765732576-t4e5ncc1ifvto1a9qbqv271at8lcatni.apps.googleusercontent.com">
+<body>
+   
+
+<div class="main">
+<div class="fake"></div>
+<div class="head">SIMORA</div>
+<div class="det">Building a better way </div>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<script>
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  document.querySelector(".head").innerHTML = profile.getName();
+  document.querySelector(".det").innerHTML = profile.getEmail();
+  document.querySelector(".g-signin2").style.cssText = "display:none;";
+  document.querySelector(".log-out").style.cssText = "display:flex;";
+  document.querySelector(".fake").style.cssText =   `background:url(${profile.getImageUrl()}) 100% 100% / cover;height: 10vw;width: 10vw;`;
+  
+}
+
+</script>
+
+
+
+<a href="#" class="log-out" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+    document.querySelector(".head").innerHTML = 'SIMORA';
+  document.querySelector(".det").innerHTML = `logged out successfully !`;
+  document.querySelector(".g-signin2").style.cssText = "display:flex;";
+  document.querySelector(".log-out").style.cssText = "display:none;";
+  
+  document.querySelector(".fake").style.cssText =   `background:transparent; background-size:cover;`;
+
+  }
+</script>
+</div>
+<style>
+    body{
+        margin:0px;
+    }
+    .main
+    {
+        width:100%;
+        height:100%;
+        background: linear-gradient(to left ,rgb(182, 53, 241),pink);display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .head
+    {
+        font-family: 'Raleway', sans-serif;
+        font-size:5vw;
+        font-weight:900;
+        color:rgb(248, 242, 242);
+    }
+    .det{
+        font-family: 'Raleway', sans-serif;
+        font-weight:300;
+        color: #fff;
+        font-size:2vw;
+    }
+    .g-signin2
+    {
+        margin:3vw;
+    }
+    .log-out
+    {
+        text-decoration: none;
+        color:#fff;
+        font-weight:900;
+        display: none;
+        margin-top:3vw;
+        background-color: black;
+        padding:1vw 2vw;
+        border-radius:3vw;
+        text-transform: uppercase;
+        font-size:1.42vw;
+        font-family: 'Raleway', sans-serif;
+    }
+</style>
+    
+</body>
+</html>
